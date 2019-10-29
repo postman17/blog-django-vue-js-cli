@@ -2,5 +2,5 @@
 
 ## Test project
 
-### Django 2.x
-### Vue JS Cli
+ - Django 2.x
+ - Vue JS Cli

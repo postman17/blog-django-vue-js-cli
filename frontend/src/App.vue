@@ -10,7 +10,8 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+<!--                <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>-->
+                <router-link class="nav-link" to="/">Главная <span class="sr-only">(current)</span></router-link>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Категории</a>
@@ -30,12 +31,11 @@
 </template>
 
 <script>
-
-export default {
-  name: 'app',
-  components: {
+  export default {
+    name: 'app',
+    components: {
+    }
   }
-}
 </script>
 
 <style>

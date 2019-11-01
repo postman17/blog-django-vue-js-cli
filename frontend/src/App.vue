@@ -9,13 +9,24 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-<!--                <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>-->
-                <router-link class="nav-link" to="/">Главная <span class="sr-only">(current)</span></router-link>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Категории</a>
-              </li>
+                <li class="nav-item active">
+                    <router-link class="nav-link" to="/">Главная</router-link>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Категории</a>
+                </li>
+                <li class="nav-item">
+                    <span v-if="isLoggedIn"><router-link class="nav-link" to="/add-article">Добавить статью</router-link></span>
+                </li>
+                <li class="nav-item">
+                    <span v-if="!isLoggedIn"><router-link class="nav-link" to="/login">Войти<span class="sr-only">(current)</span></router-link></span>
+                </li>
+                <li class="nav-item">
+                    <span v-if="!isLoggedIn"><router-link class="nav-link" to="/register">Регистрация</router-link></span>
+                </li>
+                <li class="nav-item">
+                    <span v-if="isLoggedIn"><a class="nav-link" @click="logout">Выйти</a></span>
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -33,7 +44,28 @@
 <script>
   export default {
     name: 'app',
+    computed : {
+        isLoggedIn() { return this.$store.getters.isLoggedIn }
+    },
+    methods: {
+      logout() {
+        this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/login')
+        })
+      }
+    },
     components: {
+    },
+    created() {
+        this.$http.interceptors.response.use(undefined, function (err) {
+          return new Promise(() => {
+            if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+              this.$store.dispatch('logout')
+            }
+            throw err;
+          });
+        });
     }
   }
 </script>

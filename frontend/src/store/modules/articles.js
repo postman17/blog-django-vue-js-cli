@@ -5,11 +5,11 @@ export default {
         getArticles(context) {
             const path = 'http://localhost:8000/api/articles';
             axios.get(path)
-                .then((res) => {
+                .then(res => {
                     const articles = res.data;
                     context.commit('updateArticles', articles)
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.log(error);
                 });
         }
@@ -30,13 +30,6 @@ export default {
             return id => state.articles.filter(item => {
                 return item.id === id
               });
-            // let art = {};
-            // state.articles.forEach(article) {
-            //     if (article.id == id) {
-            //         art = article
-            //     }
-            // }
-            // return art
         }
     }
 }
